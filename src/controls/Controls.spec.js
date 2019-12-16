@@ -1,46 +1,29 @@
-  import React from "react";
-import { render, fireEvent, cleanup } from "react-testing-library";
-import "react-testing-library/cleanup-after-each";
-import Dashboard from "../dashboard/Dashboard.js";
-
 // Test away!
-
-afterEach(() => {
-  cleanup();
-  console.log(document.body.outerHTML);
-});
-
-describe("<Controls />", () => {
-  it("should toggle Lock and Unlock Gates", () => {
-    const { getByText } = render(<Dashboard />);
-
-    const closeGate = getByText(/close gate/i);
-    const lockButton = getByText(/lock gate/i);
-
-    fireEvent.click(closeGate);
-    fireEvent.click(lockButton);
-    getByText(/unlock gate/i);
-    getByText(/open gate/i);
-
-    const unlockButton = getByText(/unlock gate/i);
-
-    fireEvent.click(unlockButton);
-    getByText(/lock gate/i);
+import React from "react";
+import * as rtl from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import Controls from "./Controls";
+afterEach(rtl.cleanup);
+describe("Controls", () => {
+  it("should match snapshot", () => {
+    const wrapper = rtl.render(<Controls />);
+    expect(wrapper.baseElement).toMatchSnapshot();
   });
-
-  it("should toggle Open and Closed Gates", () => {
-    const { getByText } = render(<Dashboard />);
-
-    const closeGate = getByText(/close gate/i);
-
-    fireEvent.click(closeGate);
-    getByText(/lock gate/i);
-    getByText(/open gate/i);
-
-    const openGate = getByText(/open gate/i);
-
-    fireEvent.click(openGate);
-    getByText(/lock gate/i);
-    getByText(/close gate/i);
+  it("provides buttons to toggle the closed and locked states", () => {
+    const { getByText } = rtl.render(<Controls />);
+    getByText(/Lock Gate/);
+    getByText(/Close Gate/);
+  });
+  it("the closed toggle button is disabled if the gate is locked", () => {
+    const { getByText } = rtl.render(<Controls closed={true} locked={true} />);
+    const openButton = getByText(/Open Gate/);
+    expect(openButton.disabled).toBeTruthy();
+  });
+  it("the locked toggle button is disabled if the gate is open", () => {
+    const { getByText } = rtl.render(
+      <Controls closed={false} locked={false} />
+    );
+    const lockButton = getByText(/Lock Gate/);
+    expect(lockButton.disabled).toBeTruthy();
   });
 });
