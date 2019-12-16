@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Display should match snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="display panel"
+    >
+      <div
+        class="led green-led"
+      >
+        Unlocked
+      </div>
+      <div
+        class="led green-led"
+      >
+        Open
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`renders elements properly 1`] = `
+<div>
+  <div
+    class="display panel"
+  >
+    <div
+      class="led green-led"
+    >
+      Unlocked
+    </div>
+    <div
+      class="led green-led"
+    >
+      Open
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders elements properly, true 1`] = `
+<div>
+  <div
+    class="display panel"
+  >
+    <div
+      class="led green-led"
+    >
+      Unlocked
+    </div>
+    <div
+      class="led red-led"
+    >
+      Closed
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders without crashing 1`] = `
+<div>
+  <div
+    class="display panel"
+  >
+    <div
+      class="led green-led"
+    >
+      Unlocked
+    </div>
+    <div
+      class="led green-led"
+    >
+      Open
+    </div>
+  </div>
+</div>
+`;
